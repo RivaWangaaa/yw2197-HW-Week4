@@ -8,13 +8,13 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    public static GameManager instance; // to create Singleton
 
     public int score = 0;
 
-    int targetScore = 5;
+    int targetScore = 5; // targetScore equals 5 for level1
 
-    public static int currentLevel = 0;
+    public static int currentLevel = 0; 
     
     const string FILE_SCORES = "/highScores.txt";
     string FILE_PATH_HIGH_SCORES;
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     List<int> highScores;
 
     
-    public int Score
+    public int Score    // make score a property
     {
         get { return score; }
         set
@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void Awake()
+    void Awake()   //make GameManager a singleton
     {
         if (instance == null) 
         {
@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject); 
         }
     }
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -57,22 +58,22 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isGame)
+        if (isGame)  //while in the game (level1 & level2 scenes)
         {
-            scoreText.text = "Score: " + Score + "\nTarget Score: " + targetScore;
+            scoreText.text = "Score: " + Score + "\nTarget Score: " + targetScore; // show the current score on the screen
             if (Score == targetScore)  //if the current score == the targetScore
             {
                 currentLevel++; //increase the level number
                 SceneManager.LoadScene(currentLevel); //go to the next level
-                if (currentLevel == 2)
+                if (currentLevel == 2) // if now is the GameEnd scene
                 {
                     UpdateHighScores();
                     isGame = false;
                 }
-                targetScore += 5;
+                targetScore += 5; // when go to the next level, add 5 to the targetScore
             }
         }
-        else
+        else // while in the gameEnd scene
         {
             string highScoreString = "High Scores\n\n";
 
@@ -87,7 +88,7 @@ public class GameManager : MonoBehaviour
         
     }
     
-    void UpdateHighScores()
+    void UpdateHighScores() 
     {
         if (highScores == null) //if we don't have the high scores yet
         {

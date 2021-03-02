@@ -47,7 +47,7 @@ public class Monster : MonoBehaviour
 
         print(timer);
 
-        if (GameManager.currentLevel == 2)
+        if (GameManager.currentLevel == 2) //destroy monster object in the gameEnd scene
         {
             Destroy(gameObject);
         }
