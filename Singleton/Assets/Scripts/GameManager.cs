@@ -14,14 +14,17 @@ public class GameManager : MonoBehaviour
 
     int targetScore = 5;
 
-    int currentLevel = 0;
+    public static int currentLevel = 0;
     
-    const string DIR_LOGS = "/Logs";
-    const string FILE_SCORES = DIR_LOGS + "/highScore.txt";
+    const string FILE_SCORES = "/highScores.txt";
     string FILE_PATH_HIGH_SCORES;
     
-    const string PREF_KEY_HIGH_SCORE = "HighScoreKey";
-    int highScore = -1;
+
+    public Text scoreText;
+    
+    bool isGame = true;
+    
+    List<int> highScores;
 
     
     public int Score
@@ -30,44 +33,6 @@ public class GameManager : MonoBehaviour
         set
         {
             score = value;
-            
-            if (score > HighScore)
-            {
-                HighScore = score;
-            }
-            
-        }
-    }
-    
-    public int HighScore
-    {
-        get
-        {
-            if (highScore < 0)
-            {
-                if (File.Exists(FILE_PATH_HIGH_SCORES))
-                {
-                    string fileContents = File.ReadAllText(FILE_PATH_HIGH_SCORES);
-                    highScore = Int32.Parse(fileContents);
-                }
-                else
-                {
-                    highScore = 0;
-                }
-            }
-
-            return highScore;
-        }
-        set
-        {
-            highScore = value;
-
-            if (!File.Exists(FILE_PATH_HIGH_SCORES))
-            {
-                Directory.CreateDirectory(Application.dataPath + DIR_LOGS);
-            }
-
-            File.WriteAllText(FILE_PATH_HIGH_SCORES, highScore + "");
         }
     }
 
@@ -92,13 +57,74 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print("Score: " + Score);
-        print("HighScore: " + HighScore);
-        if (Score == targetScore)  //if the current score == the targetScore
+        if (isGame)
         {
-            currentLevel++; //increase the level number
-            SceneManager.LoadScene(currentLevel); //go to the next level
-            targetScore += 5;
+            scoreText.text = "Score: " + Score + "\nTarget Score: " + targetScore;
+            if (Score == targetScore)  //if the current score == the targetScore
+            {
+                currentLevel++; //increase the level number
+                SceneManager.LoadScene(currentLevel); //go to the next level
+                if (currentLevel == 2)
+                {
+                    UpdateHighScores();
+                    isGame = false;
+                }
+                targetScore += 5;
+            }
         }
+        else
+        {
+            string highScoreString = "High Scores\n\n";
+
+            for (var i = 0; i < highScores.Count; i++)
+            {
+                highScoreString += highScores[i] + "\n";
+            }
+
+            scoreText.text = highScoreString;
+        }
+       
+        
+    }
+    
+    void UpdateHighScores()
+    {
+        if (highScores == null) //if we don't have the high scores yet
+        {
+            highScores = new List<int>();
+            
+            highScores.Add(2); // TODO
+            highScores.Add(1);// TODO
+
+            string fileContents = File.ReadAllText(FILE_PATH_HIGH_SCORES);
+
+            string[] fileScores = fileContents.Split(',');
+            
+            print(fileScores.Length);
+
+            for (var i = 0; i < fileScores.Length - 1; i++)
+            {
+                highScores.Add(Int32.Parse(fileScores[i]));
+            }
+        }
+
+        for (var i = 0; i < highScores.Count; i++)
+        {
+            if (score > highScores[i])
+            {
+                highScores.Insert(i, score);
+                break;
+            }
+        }
+
+        string saveHighScoreString = "";
+
+        for (var i = 0; i < highScores.Count; i++)
+        {
+            saveHighScoreString += highScores[i] + ",";
+        }
+
+        File.WriteAllText(FILE_PATH_HIGH_SCORES, saveHighScoreString);
     }
 }
+

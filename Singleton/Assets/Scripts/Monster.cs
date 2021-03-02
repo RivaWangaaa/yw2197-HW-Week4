@@ -46,6 +46,12 @@ public class Monster : MonoBehaviour
         }
 
         print(timer);
+
+        if (GameManager.currentLevel == 2)
+        {
+            Destroy(gameObject);
+        }
+        
     }
 
 

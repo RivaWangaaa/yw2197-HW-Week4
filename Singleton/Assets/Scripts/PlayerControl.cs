@@ -52,6 +52,11 @@ public class PlayerControl : MonoBehaviour
         {
             rb2D.AddForce(Vector2.right * forceAmount);
         }
+        
+        if (GameManager.currentLevel == 2)
+        {
+            Destroy(gameObject);
+        }
     }
     
    

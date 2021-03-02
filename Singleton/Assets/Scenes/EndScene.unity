@@ -256,7 +256,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Game End! You got caught. \n(Press 'SPACE' to try again)"
+  m_Text: "Game End! \n(Press 'SPACE' to try again)"
 --- !u!222 &601416674
 CanvasRenderer:
   m_ObjectHideFlags: 0

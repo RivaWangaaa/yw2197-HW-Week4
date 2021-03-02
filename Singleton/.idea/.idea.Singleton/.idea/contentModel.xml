@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="C:\Users\RivaWang\AppData\Local\JetBrains\Rider2020.3\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\RivaWang\AppData\Local\JetBrains\Rider2020.3\resharper-host\Local\Transient\Rider\v203\SolutionCaches\_Singleton.-924275430.00" t="ExcludeRecursive" />
-    <e p="D:\NYU\研一冬季\Code Lab 1\yw2197-HW-Week2\Singleton" t="IncludeRecursive">
+    <e p="C:\Users\RivaWang\AppData\Local\JetBrains\Rider2020.3\resharper-host\Local\Transient\Rider\v203\SolutionCaches\_Singleton.-783726820.00" t="ExcludeRecursive" />
+    <e p="D:\NYU\研一冬季\Code Lab 1\yw2197-HW-Week4\Singleton" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="highScore.txt" t="Include" />
+        <e p="highScores.txt" t="Include" />
         <e p="Logs" t="Include">
           <e p="highScore.txt" t="Include" />
         </e>
